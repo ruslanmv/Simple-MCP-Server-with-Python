@@ -10,8 +10,6 @@ The Model Context Protocol (MCP) standardizes the interface between applications
 - **Define Tools:** Provide functionality that performs actions or computations (like POST endpoints).
 - **Create Prompts:** Offer reusable, templated interactions.
 
-
-
 ##  MCP Primitives
 
 Every MCP server can implement three core primitives. These define **who controls** the invocation and **what role** each primitive plays:
@@ -508,5 +506,3 @@ In this tutorial, we built a simple MCP server in Python using the MCP Python SD
 - Created an MCP server that exposes a calculator tool and a dynamic greeting resource.
 
 The MCP Python SDK empowers you to build robust and modular servers that provide data, functionality, and reusable interaction templates to LLM applications. As you expand your server, consider adding more complex tools, resources, and prompts to fully leverage the power of the Model Context Protocol.
-
-Happy coding!
