@@ -328,9 +328,6 @@ After running the command, your terminal output should resemble:
 
 This output confirms that the Inspector is active and ready for interaction.
 
-
-
-
 1. In the UI, you can:
    - Test the `add(a, b)` tool
    - Use `greeting://John` to test the resource
@@ -368,8 +365,6 @@ Then click **Connect**  and  our server will be launched properly using the Pyth
  ![](assets/2025-04-15-22-53-08.png)
 
 
-
-
 ## Example Usage: Testing the "Add" Tool
 
 Consider the following scenario while working with our  example (which registers an addition tool, a greeting resource, and a code review prompt):
@@ -390,13 +385,6 @@ Consider the following scenario while working with our  example (which registers
 
 ## 🛠️ Interacting with Your MCP Server: Development and Beyond
 
-The initial approach of using `mcp run` directly with a `request.json` file is not the standard way to interact with a running MCP server. The `mcp run` command is primarily used to *start* an MCP server process.
-
-Here's a breakdown of the correct methods to interact with your `server.py`, along with explanations and examples.
-
-
-### 🧪 Using the MCP Development Inspector (Recommended for Development)
-
 For development and testing, the MCP Development Inspector provides an intuitive web interface to interact with your server.
 
 #### 1. Start Your Server in Development Mode
@@ -416,8 +404,6 @@ This command launches your MCP server and typically opens the Inspector in your 
 * **Use a Prompt (`review_code`):** Find the `review_code` prompt. You'll be able to enter the `code` argument (e.g., `print(1+1)`). Upon execution, you'll see the generated prompt: "Please review this code:\n\nprint(1+1)".
 
 The MCP Inspector acts as a user-friendly client, handling the underlying protocol communication for you.
-
----
 
 ### 🐍 Using a Python MCP Client (`client.py`)
 

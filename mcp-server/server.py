@@ -1,6 +1,5 @@
 # server.py
 from mcp.server.fastmcp import FastMCP
-from mcp.server.fastmcp.prompts import base
 
 # Create an MCP server instance with a custom name.
 mcp = FastMCP("Demo Server")
@@ -10,12 +9,13 @@ mcp = FastMCP("Demo Server")
 def add(a: int, b: int) -> int:
     """
     Add two numbers together.
-
+    
     :param a: First number.
     :param b: Second number.
     :return: Sum of the numbers.
     """
     return a + b
+
 
 # Expose a greeting resource that dynamically constructs a personalized greeting.
 @mcp.resource("greeting://{name}")
