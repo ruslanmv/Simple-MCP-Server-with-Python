@@ -387,37 +387,6 @@ Consider the following scenario while working with our  example (which registers
    This immediate feedback loop shows how you can quickly verify that your tool’s logic is working as expected without leaving the development interface.
 
 
----
-
-##  Alternative: Run with SSE (Server-Sent Events)
-
-If you want to run your MCP server over **HTTP**, you can switch to the **SSE transport**. This is great for integrating with a **frontend app or API client**.
-
-### Modify `server.py`:
-
-```python
-if __name__ == "__main__":
-    mcp.run(transport="sse", host="127.0.0.1", port=8080)
-```
-
-###  Run the server:
-
-```bash
-python server.py
-```
-
-Now the server is running at:
-```
-http://127.0.0.1:8080
-```
-
-You can access tools, resources, and prompts via HTTP endpoints.
-
----
-
-
-
-
 
 ## 🛠️ Interacting with Your MCP Server: Development and Beyond
 
