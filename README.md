@@ -51,6 +51,7 @@ This tutorial will guide you through creating a simple MCP server using the MCP 
 Before you begin, ensure you have the following installed:
 - **Python 3.7+** (preferably 3.11 or higher)
 - **pip** – the Python package installer
+- **Node.js 18.x** 
 
 You will also need to install the MCP Python SDK. You have two options:
 - **Using pip directly:**
