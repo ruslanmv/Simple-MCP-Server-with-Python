@@ -126,7 +126,19 @@ If you prefer a step-by-step approach, follow these instructions:
 
     Confirm that the output shows Python 3.11 and a recent version of pip.
 
-7.  **Create and activate a virtual environment:** Using a virtual environment isolates your project's dependencies.
+8.  Setting up NodeSource for Node.js 18.x…
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+```
+Installing Node.js (with npm & npx)…"
+
+```bash
+sudo apt-get update
+sudo apt-get install -y nodejs
+```
+
+9.  **Create and activate a virtual environment:** Using a virtual environment isolates your project's dependencies.
 
     ```bash
     python3 -m venv .venv
@@ -135,13 +147,13 @@ If you prefer a step-by-step approach, follow these instructions:
 
     A `.venv` directory will be created in your project, and your terminal prompt will change to `(.venv)`, indicating that the environment is active.
 
-8.  **Upgrade `pip` within the virtual environment:**
+2.  **Upgrade `pip` within the virtual environment:**
 
     ```bash
     pip install --upgrade pip
     ```
 
-9.  **Install the MCP Python SDK:** Create a file named `requirements.txt` in your project directory with the following content:
+3.  **Install the MCP Python SDK:** Create a file named `requirements.txt` in your project directory with the following content:
 
     ```
     mcp[cli]
