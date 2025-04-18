@@ -46,8 +46,6 @@ During initialization, an MCP server advertises which features it supports. Clie
 
 This tutorial will guide you through creating a simple MCP server using the MCP Python SDK.
 
----
-
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
@@ -181,8 +179,10 @@ For a more automated setup, you can use the provided `install.sh` script.
     * Installs `pip` for Python 3.11.
     * Creates and activates a virtual environment named `.venv`.
     * Upgrades `pip` within the virtual environment.
+    * Install  Node.js: node v18.20.8
     * Installs the MCP Python SDK from `requirements.txt` (if the file exists).
-![](assets/2025-04-15-20-46-32.png)
+![](assets/2025-04-18-09-52-18.png)
+
 **Important Notes:**
 
 * Regardless of the method you choose, make sure to activate the virtual environment (`source .venv/bin/activate`) every time you work on your project in a new terminal session. This ensures you are using the correct Python version and have access to the installed MCP SDK.
@@ -205,12 +205,10 @@ mcp-server/
 └── (other files such as .env, README.md, etc. as needed)
 ```
 
----
-
 ## Creating Your MCP Server
 
 In this section, we will create a simple MCP server that exposes a calculator tool and a dynamic greeting resource. You can later extend this to add more functionality using prompts or additional tools.
-npm install -g @modelcontextprotocol/inspector@0.9.0
+
 ### Defining Tools
 
 Tools are functions that perform computations or side effects. In this example, we’ll define a simple addition tool.
@@ -292,23 +290,8 @@ cd mcp-server
 
 With your server defined in `server.py`, you can now run it. There are several ways to run an MCP server depending on your goals — development, debugging, integration, or deployment.
 
-##  What’s Happening with `python server.py`
-
-Your code is correct, but when you run:
-
-```bash
-python server.py
-```
-
-…it looks like nothing happens. That’s because your server is using **`stdio` (standard input/output)** as the default **transport**, and it just sits silently **waiting for a client** to connect and send it a request.
-
-This is normal! But you need the **right interface** to interact with it.
-
----
-
 ##  The Best Way to Run and Test Your Server: Use `mcp dev`
 The easiest way to interact with your MCP server is using the built-in **MCP Inspector**, which gives you a visual UI in the browser.
-
 
 For development and testing, the MCP Development Inspector provides an intuitive web interface to interact with your server.
 
@@ -335,7 +318,7 @@ This command launches your MCP server and typically opens the Inspector in your 
 - **Launches the MCP Inspector interface,** a web-based UI available at `http://localhost:6274/`, where you can explore and test all the functionalities of your server.
 
 After running the command, your terminal output should resemble:
-![](assets/2025-04-15-20-54-16.png)
+![](assets/2025-04-18-09-56-13.png)
 
 
 This output confirms that the Inspector is active and ready for interaction.
@@ -355,7 +338,6 @@ When you open the Inspector in your browser, you will notice several key section
 
 
 Go to the top of the MCP Inspector interface where it shows:
-
 
 ```
 Transport Type: STDIO  
@@ -380,7 +362,6 @@ Then click **Connect**  and  our server will be launched properly using the Pyth
 
 ## Example Usage: Testing the "Add" Tool
 
-
 * **Call a Tool (`add`):** Navigate to the `add` tool in the Inspector.
 
 Consider the following scenario while working with our  example (which registers an addition tool, a greeting resource, and a code review prompt):
@@ -392,82 +373,96 @@ Consider the following scenario while working with our  example (which registers
    Click on the `add` tool from the list. The Inspector displays the input schema for the tool, prompting you for two numbers (for example, parameters `a` and `b`).  
    - **Input Parameters:** Enter `a = 10` and `b = 15`.
    - **Execution:** Click the execute button in the Inspector’s execution panel.
-![](assets/2025-04-15-22-55-58.png)
+
+
 3. **Reviewing the Output:**  
    Once executed, the Inspector immediately displays the result of the operation. You should see that the sum is returned as `25`.  
    This immediate feedback loop shows how you can quickly verify that your tool’s logic is working as expected without leaving the development interface.
 
-![](assets/2025-04-18-09-18-12.png)
-## Using the `review_code` Prompt via the MCP Inspector
-* **Use a Prompt (`review_code`):** Find the `review_code` prompt. You'll be able to enter the `code` argument (e.g., `print(1+1)`). Upon execution, you'll see the generated prompt: "Please review this code:\n\nprint(1+1)".
+![](assets/2025-04-18-09-58-44.png)
 
+## 2.  Using the `review_code` Prompt via the MCP Inspector
 
-
-### 2. Locating the `review_code` Prompt
-- In the Inspector’s sidebar, expand **Resources** → **Prompts**.  
+- In the Inspector’s sidebar, expand **Prompts** → **List prompts**.  
 - You should see **`review_code`** listed:
   > **review_code**  
-  > Provide a template for reviewing code.  
-- Click it to open the prompt’s detail pane.
 
-### 3. Invoking `review_code`
-1. In the prompt pane you’ll find a form or JSON editor ready to accept arguments.  
+
+In the prompt pane you’ll find a form or JSON editor ready to accept arguments.  
 2. Supply the `code` parameter. For example:
-   ```json
-   {
-     "code": "print(1+1)"
-   }
-   ```
+   ```print(1+1)
+    ```
 3. Hit **Run** (or **Get Prompt**).
 
 ### 4. Viewing the Generated Prompt
 - The Inspector will display the output:
-  ```json
+```json
 {
   "messages": [
     {
       "role": "user",
       "content": {
         "type": "text",
-        "text": "Please review this code:\n\n{   \"code\": \"print(1+1)\" }"
+        "text": "Please review this code:\n\nprint(1+1)"
       }
     }
   ]
 }
-  ```
-![](assets/2025-04-18-09-17-24.png)
-## Accessing a Resource (`greeting://Alice`)
 
+```
+![](assets/2025-04-18-10-05-05.png)
+
+
+## Accessing a Resource (`greeting://Alice`)
 Once your server is up and running in the Inspector (using the setup from above), you can invoke any registered resource by its URI:
 
 ### 1. Open the Resource Interaction Pane  
-- In the MCP Inspector sidebar, click **Resources** → **Resource Interaction**.
-clicl list templates
+- In the MCP Inspector sidebar, click **Resources** → **Resource Templates**.
+click `List templates` and select
+`get_greeting`
 ### 2. Enter the Resource URI  
-- In the input field, type:  
-  ```
- Alice
-  ```
+- In the input field name, type:  
+```
+Alice
+```
 
 ### 3. Invoke the Resource  
-- Click **Run** (or **Invoke**).  
+- Click **Read Resource**.  
 - The Inspector will send that URI to your `@mcp.resource("greeting://{name}")` handler.
 
 ### 4. View the Response  
 - You should see:
-  ```
-  Hello, Alice!
-  ```
+```json
+{
+  "contents": [
+    {
+      "uri": "greeting://Alice",
+      "mimeType": "text/plain",
+      "text": "Hello, Alice!"
+    }
+  ]
+}
+```
 - This confirms your dynamic greeting resource is wired up correctly and returns personalized output on demand.
 
-![](assets/2025-04-18-09-21-22.png)
+![](assets/2025-04-18-10-09-51.png)
 
 
 
 The MCP Inspector acts as a user-friendly client, handling the underlying protocol communication for you.
 
 
+##  What’s Happening with `python server.py`
 
+Your code is correct, but when you run:
+
+```bash
+python server.py
+```
+
+…it looks like nothing happens. That’s because your server is using **`stdio` (standard input/output)** as the default **transport**, and it just sits silently **waiting for a client** to connect and send it a request.
+
+This is normal! But you need the **right interface** to interact with it.
 
 
 ### 🐍 Using a Python MCP Client (`client.py`)
@@ -504,9 +499,9 @@ if __name__ == "__main__":
     python server.py
     ```
 2.  **Run the client in a separate terminal:**
-    ```bash
+```bash
     python client.py
-    ```
+```
 
 The output will be:
 
