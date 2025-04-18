@@ -381,21 +381,26 @@ Consider the following scenario while working with our  example (which registers
 
 ![](assets/2025-04-18-09-58-44.png)
 
-## 2.  Using the `review_code` Prompt via the MCP Inspector
+##   Using the `review_code` Prompt via the MCP Inspector
 
 - In the Inspector’s sidebar, expand **Prompts** → **List prompts**.  
 - You should see **`review_code`** listed:
   > **review_code**  
 
-
 In the prompt pane you’ll find a form or JSON editor ready to accept arguments.  
-2. Supply the `code` parameter. For example:
-   ```print(1+1)
-    ```
-3. Hit **Run** (or **Get Prompt**).
 
-### 4. Viewing the Generated Prompt
-- The Inspector will display the output:
+2. Supply the `code` parameter.
+    For example:
+
+```
+print(1+1)
+```
+Hit **Run Tool** .
+
+### Viewing the Generated Prompt
+
+The Inspector will display the output:
+
 ```json
 {
   "messages": [
@@ -408,10 +413,9 @@ In the prompt pane you’ll find a form or JSON editor ready to accept arguments
     }
   ]
 }
-
 ```
-![](assets/2025-04-18-10-05-05.png)
 
+![](assets/2025-04-18-10-05-05.png)
 
 ## Accessing a Resource (`greeting://Alice`)
 Once your server is up and running in the Inspector (using the setup from above), you can invoke any registered resource by its URI:
