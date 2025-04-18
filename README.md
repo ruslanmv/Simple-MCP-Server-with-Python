@@ -210,7 +210,7 @@ mcp-server/
 ## Creating Your MCP Server
 
 In this section, we will create a simple MCP server that exposes a calculator tool and a dynamic greeting resource. You can later extend this to add more functionality using prompts or additional tools.
-
+npm install -g @modelcontextprotocol/inspector@0.9.0
 ### Defining Tools
 
 Tools are functions that perform computations or side effects. In this example, we’ll define a simple addition tool.
@@ -310,6 +310,18 @@ This is normal! But you need the **right interface** to interact with it.
 The easiest way to interact with your MCP server is using the built-in **MCP Inspector**, which gives you a visual UI in the browser.
 
 
+For development and testing, the MCP Development Inspector provides an intuitive web interface to interact with your server.
+
+#### 1. Start Your Server in Development Mode
+
+In your terminal, run:
+
+```bash
+mcp dev server.py
+```
+
+This command launches your MCP server and typically opens the Inspector in your web browser. You'll see your "Demo Server" and the exposed tools (`add`), resources (`greeting`), and prompts (`review_code`).
+
 1. **Start your server with the Inspector:**
 
    ```bash
@@ -338,7 +350,7 @@ This output confirms that the Inspector is active and ready for interaction.
 > 💡 If any packages are missing, `mcp dev` will help you install them automatically.
 
 ## Navigating the MCP Inspector Interface
-
+#### 2. Interact Through the Inspector
 When you open the Inspector in your browser, you will notice several key sections designed to facilitate server testing.
 
 
@@ -365,7 +377,11 @@ Then click **Connect**  and  our server will be launched properly using the Pyth
  ![](assets/2025-04-15-22-53-08.png)
 
 
+
 ## Example Usage: Testing the "Add" Tool
+
+
+* **Call a Tool (`add`):** Navigate to the `add` tool in the Inspector.
 
 Consider the following scenario while working with our  example (which registers an addition tool, a greeting resource, and a code review prompt):
 
@@ -381,29 +397,78 @@ Consider the following scenario while working with our  example (which registers
    Once executed, the Inspector immediately displays the result of the operation. You should see that the sum is returned as `25`.  
    This immediate feedback loop shows how you can quickly verify that your tool’s logic is working as expected without leaving the development interface.
 
-
-
-## 🛠️ Interacting with Your MCP Server: Development and Beyond
-
-For development and testing, the MCP Development Inspector provides an intuitive web interface to interact with your server.
-
-#### 1. Start Your Server in Development Mode
-
-In your terminal, run:
-
-```bash
-mcp dev server.py
-```
-
-This command launches your MCP server and typically opens the Inspector in your web browser. You'll see your "Demo Server" and the exposed tools (`add`), resources (`greeting`), and prompts (`review_code`).
-
-#### 2. Interact Through the Inspector
-
-* **Call a Tool (`add`):** Navigate to the `add` tool in the Inspector. You'll be presented with input fields for `a` and `b`. Enter `3` and `4` respectively, and click the "Call Tool" button. The result (`7`) will be displayed in the Inspector.
-* **Access a Resource (`greeting://Alice`):** Explore the available resources. You can typically trigger a resource by entering its URI (e.g., `greeting://Alice`) in the Inspector's resource interaction section. The response "Hello, Alice!" will be shown.
+![](assets/2025-04-18-09-18-12.png)
+## Using the `review_code` Prompt via the MCP Inspector
 * **Use a Prompt (`review_code`):** Find the `review_code` prompt. You'll be able to enter the `code` argument (e.g., `print(1+1)`). Upon execution, you'll see the generated prompt: "Please review this code:\n\nprint(1+1)".
 
+
+
+### 2. Locating the `review_code` Prompt
+- In the Inspector’s sidebar, expand **Resources** → **Prompts**.  
+- You should see **`review_code`** listed:
+  > **review_code**  
+  > Provide a template for reviewing code.  
+- Click it to open the prompt’s detail pane.
+
+### 3. Invoking `review_code`
+1. In the prompt pane you’ll find a form or JSON editor ready to accept arguments.  
+2. Supply the `code` parameter. For example:
+   ```json
+   {
+     "code": "print(1+1)"
+   }
+   ```
+3. Hit **Run** (or **Get Prompt**).
+
+### 4. Viewing the Generated Prompt
+- The Inspector will display the output:
+  ```json
+{
+  "messages": [
+    {
+      "role": "user",
+      "content": {
+        "type": "text",
+        "text": "Please review this code:\n\n{   \"code\": \"print(1+1)\" }"
+      }
+    }
+  ]
+}
+  ```
+![](assets/2025-04-18-09-17-24.png)
+## Accessing a Resource (`greeting://Alice`)
+
+Once your server is up and running in the Inspector (using the setup from above), you can invoke any registered resource by its URI:
+
+### 1. Open the Resource Interaction Pane  
+- In the MCP Inspector sidebar, click **Resources** → **Resource Interaction**.
+clicl list templates
+### 2. Enter the Resource URI  
+- In the input field, type:  
+  ```
+ Alice
+  ```
+
+### 3. Invoke the Resource  
+- Click **Run** (or **Invoke**).  
+- The Inspector will send that URI to your `@mcp.resource("greeting://{name}")` handler.
+
+### 4. View the Response  
+- You should see:
+  ```
+  Hello, Alice!
+  ```
+- This confirms your dynamic greeting resource is wired up correctly and returns personalized output on demand.
+
+![](assets/2025-04-18-09-21-22.png)
+
+
+
 The MCP Inspector acts as a user-friendly client, handling the underlying protocol communication for you.
+
+
+
+
 
 ### 🐍 Using a Python MCP Client (`client.py`)
 
